@@ -23,6 +23,12 @@ class MarkdownType extends AbstractType
     /**
      * {@inheritdoc}
      */
+    public function configureOptions(\Symfony\Component\OptionsResolver\OptionsResolver $resolver) {
+        $this->setDefaultOptions($resolver);
+    }
+    /**
+     * {@inheritdoc}
+     */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
@@ -37,11 +43,18 @@ class MarkdownType extends AbstractType
 
     public function getParent()
     {
-        return 'textarea';
+        if (!method_exists('Symfony\Component\Form\AbstractType', 'getBlockPrefix')) {
+            return 'textarea';
+        } else {
+            return \Symfony\Component\Form\Extension\Core\Type\TextareaType::class;
+        }
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'markdown';
+    }
+    public function getName() {
+        return $this->getBlockPrefix();
     }
 }
