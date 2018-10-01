@@ -6,7 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class MarkdownType extends AbstractType
 {
@@ -23,13 +24,13 @@ class MarkdownType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function configureOptions(\Symfony\Component\OptionsResolver\OptionsResolver $resolver) {
+    public function configureOptions(OptionsResolver $resolver) {
         $this->setDefaultOptions($resolver);
     }
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function setDefaultOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'attr'              => array(
@@ -46,7 +47,7 @@ class MarkdownType extends AbstractType
         if (!method_exists('Symfony\Component\Form\AbstractType', 'getBlockPrefix')) {
             return 'textarea';
         } else {
-            return \Symfony\Component\Form\Extension\Core\Type\TextareaType::class;
+            return TextareaType::class;
         }
     }
 
